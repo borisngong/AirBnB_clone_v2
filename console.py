@@ -10,7 +10,6 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
-from datetime import datetime
 
 
 class HBNBCommand(cmd.Cmd):
@@ -115,29 +114,31 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, args):
-        """ Base on User input, this creates an object of any class"""
+        """Base on User input, this creates an object of any class"""
         try:
             if not args:
                 raise SyntaxError()
-            input_line = args.split(" ")
-            k_words = {}
-            for arg in input_line[1:]:
-                user_input_parts = arg.split("=")
-                if len(user_input_parts) >= 2:
-                    user_input_parts[1] = eval(user_input_parts[1])
-                    if type(user_input_parts[1]) is str:
-                        user_input_parts[1] = user_input_parts[1].replace("_", " ").replace('"', '\\"')
-                    k_words[user_input_parts[0]] = user_input_parts[1]
+            arg_components = args.split(" ")
+            input_class_name = arg_components[0]
+            if input_class_name not in HBNBCommand.classes:
+                print("** class doesn't exist **")
+                return
+
+            # Create an instance with default attributes
+            created_instance = HBNBCommand.classes[input_class_name]()
+
+            # Parse additional attributes
+            for arg in arg_components[1:]:
+                key, value = arg.split("=")
+                setattr(created_instance, key, eval(value))
+
+            created_instance.save()
+            print(created_instance.id)
 
         except SyntaxError:
             print("** class name missing **")
         except NameError:
             print("** class doesn't exist **")
-        if 'updated_at' not in k_words:
-            k_words['updated_at'] = datetime.now()
-        created_instace = HBNBCommand.classes[input_line[0]](**k_words)
-        created_instace.save()
-        print(created_instace.id)
 
     def help_create(self):
         """ Help information for the create method """
