@@ -130,6 +130,14 @@ class HBNBCommand(cmd.Cmd):
                 key, value = arg.split("=")
                 setattr(created_instance, key, eval(value))
 
+                if value.startswith('"') and value.endswith('"'):
+                    value = value[1:-1].replace('_', ' ')
+                    setattr(created_instance, key, value)
+                elif '.' in value:
+                    setattr(created_instance, key, float(value))
+                elif value.isdigit():
+                    setattr(created_instance, key, int(value))
+
             created_instance.save()
             print(created_instance.id)
 
