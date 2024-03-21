@@ -1,19 +1,18 @@
 #!/usr/bin/python3
-"""Module for intereacting with the user class"""
+"""Module for interacting with the user class"""
 
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 from models.place import Place
 from models.review import Review
-from sqlalchemy.ext.declarative import declarative_base
 
 
 class User(BaseModel, Base):
-    """Represents the class for user inheriting from Basenodel, Base
+    """Represents the class for user inheriting from BaseModel, Base
     Attributes:
         email: email address
-        password: password for you login
+        password: password for your login
         first_name: first name
         last_name: last name
     """
