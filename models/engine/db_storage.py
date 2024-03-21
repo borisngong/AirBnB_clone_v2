@@ -97,4 +97,4 @@ class DBStorage:
         """
         Responsible for closing the current session
         """
-        self.__session.remove()
+        self.__session.close()
