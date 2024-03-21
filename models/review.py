@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """Module for working with the review class"""
 
-from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, ForeignKey, Float
 from sqlalchemy.ext.declarative import declarative_base
+from models.base_model import BaseModel, Base
 
 class Review(BaseModel, Base):
     """Represents  the class for Review inheriting from BaseModel, Base
