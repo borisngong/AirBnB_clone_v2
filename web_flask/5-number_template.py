@@ -2,8 +2,7 @@
 """A module for starting Flask web Application"""
 
 
-from flask import Flask
-from flask import render_template
+from flask import Flask, render_template
 
 
 app = Flask(__name__)
@@ -42,8 +41,8 @@ def number_app_route(n):
 
 
 @app.route("/number_template/<int:n>", strict_slashes=False)
-def number_template_app_route(n):
-    """Display a HTML page only if n is an integer"""
+def number_template_route(n):
+    """display a HTML page only if n is an integer"""
     return render_template('5-number.html', n=n)
 
 
